@@ -1,18 +1,18 @@
-#¸÷ÎÄ¼þµÄÓÃÍ¾
-	check_everyday.sh  ÊÊÓÃÓÚLinux»·¾³ÏÂ½¨Á¢Ò»¸öcronbÈÎÎñ¶¨Ê±µÄ·¢ËÍÓÊ¼þ
-	email.log	·¢ËÍÓÊ¼þºóµÄ×´Ì¬ÃüÁîÐÐÐÅÏ¢»á±£´æÖÁ´Ë
-	haitou.py	Ö÷³ÌÐòÎÄ¼þÔ´Âë
+#å„æ–‡ä»¶çš„ç”¨é€”
+	check_everyday.sh  é€‚ç”¨äºŽLinuxçŽ¯å¢ƒä¸‹å»ºç«‹ä¸€ä¸ªcrontabä»»åŠ¡å®šæ—¶çš„å‘é€é‚®ä»¶
+	email.log	å‘é€é‚®ä»¶åŽçš„çŠ¶æ€å‘½ä»¤è¡Œä¿¡æ¯ä¼šä¿å­˜è‡³æ­¤
+	haitou.py	ä¸»ç¨‹åºæ–‡ä»¶æºç 
 	
 	
-#Ð¡ÌùÊ¿
-	Èç¹û¸Ð¾õÃ¿´ÎÒªÊäÈëÌ«¸´ÔÓ£¬¿ÉÒÔ½«ÒÔÏÂÐÅÏ¢Ìî³äÍê±Ï
-	# username = 'xxxxxxxxxx@126.com'#input("ÇëÊäÈëÕËºÅ:")
-	# password = 'xxxxxxxxxx'#input("ÇëÊäÈëÃÜÂë:")
+#å°è´´å£«
+	å¦‚æžœæ„Ÿè§‰æ¯æ¬¡è¦è¾“å…¥å¤ªå¤æ‚ï¼Œå¯ä»¥å°†ä»¥ä¸‹ä¿¡æ¯å¡«å……å®Œæ¯•
+	# username = 'xxxxxxxxxx@126.com'#input("è¯·è¾“å…¥è´¦å·:")
+	# password = 'xxxxxxxxxx'#input("è¯·è¾“å…¥å¯†ç :")
 	# sender = username
 	# receiver = []# 'xxxxxxxxxx@qq.com','xxxxxxxxxx@126.com'
 	# smtpserver = 'smtp.126.com'
 	
 	
-Õâ¸ö»¹ÓÐºÜ¶àBugºÍÒªÍêÉÆµÄµØ·½£¬»¶Ó­´ó¼Ò¸øÎÒ·¢ÓÊ¼þºÍÎÒÌÖÂÛ
+è¿™ä¸ªè¿˜æœ‰å¾ˆå¤šBugå’Œè¦å®Œå–„çš„åœ°æ–¹ï¼Œæ¬¢è¿Žå¤§å®¶ç»™æˆ‘å‘é‚®ä»¶å’Œæˆ‘è®¨è®º
 mailto:wangyijieonline@126.com
 	
