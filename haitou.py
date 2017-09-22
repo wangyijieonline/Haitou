@@ -12,24 +12,29 @@ from email.mime.multipart import MIMEMultipart
 from email.utils import formataddr
 from email.mime.application import MIMEApplication
 
-url = "http://xjh.haitou.cc/cd/uni-147/page-"
+url = "http://xjh.haitou.cc/cd/uni-147/"  # !!此处为学校代码，请自行去海投网上查看并修改
 user_agent = 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'
 headers = {'User-Agent': user_agent}
 tableHeader = ["日期", "宣讲时间", "公司", "宣讲地点"]
 # username = 'xxxxxxxxxx@126.com'#input("请输入账号:")
 # password = 'xxxxxxxxxx'#input("请输入密码:")
 # sender = username
-receiver = []# 'xxxxxxxxxx@qq.com','xxxxxxxxxx@126.com'
+receiver = []  # 'xxxxxxxxxx@qq.com', 'xxxxxxxxxx@126.com'
 smtpserver = 'smtp.126.com'
 
 class Xiaozhao(object):
-    def claw_content(self):        
+    def claw_content(self):
         pt = PrettyTable(tableHeader)
-        for page in range(1,3):#
-            req = urllib2.Request(url+str(page), headers=headers)
+        subject_time = datetime.datetime.now().strftime('%y%m%d')
+        # print(subject_time[-6:])
+
+        for page in range(1, 3):
+            req = urllib2.Request(url + str(subject_time[-6:]) + '/page-' + str(page), headers=headers)
             content = urllib2.urlopen(req).read().decode('utf-8')
-            #print content
-            pattern = re.compile('<tr data-key=.*?success company">(.*?)</div><span>.*?"hold-ymd">(.*?)</span>.*?<span class=.*?">\((.*?)\)</span></td><td class="text-ellipsis"><span title="(.*?)">.*?</a></td></tr>',re.S)
+            # print content
+            pattern = re.compile(
+                '<tr data-key=.*?success company">(.*?)</div><span>.*?"hold-ymd">(.*?)</span>.*?<span class=.*?">\((.*?)\)</span></td><td class="text-ellipsis"><span title="(.*?)">.*?</a></td></tr>',
+                re.S)
             items = re.findall(pattern, content)
 
             for item in items:
@@ -38,7 +43,7 @@ class Xiaozhao(object):
                 else:
                     pt.align["公司"] = "l"  # 以name字段左对齐
                     pt.padding_width = 2  # 填充宽度
-                    pt.add_row([item[2], item[1],item[0], item[3]])#, item[4]
+                    pt.add_row([item[2], item[1], item[0], item[3]])  # , item[4]
         # print pt
         return pt
 
@@ -53,23 +58,30 @@ class Xiaozhao(object):
         receiver.append(str(raw_input("Please Input Receiver Address,for example:xxxxxxxxxx@qq.com \n")))
         iRec = 1
         while iRec>0:
-            CmdRec = raw_input("Whether you want to add another Receiver Address(default n)? \n")
+            CmdRec = raw_input("Whether you want to add another Receiver Address(y or n,default n)? \n")
             if CmdRec == 'y' or CmdRec == 'yes':
                 iRec = 1
                 receiver.append(str(raw_input("Please Input Receiver Address,for example:xxxxxxxxxx@qq.com \n")))
             else:
                 iRec = 0
 
-        ConfirmRec = raw_input("Confirm? \n")
+        ConfirmRec = raw_input("Confirm(y or n,default y)? \n")
         if ConfirmRec == 'n' or ConfirmRec == 'no':
             print("What Do You Want? Maybe run this program again.\n")
             exit(1) 
         else:
-            print("OK \n"+ username + " sendto " + receiver[0] + " and "+ receiver[1])
+            print "OK\n"+ username + " Sendto "+str(len(receiver))+" People:"
+            for i in range(0,len(receiver)):
+                # if (i == len(receiver)-1):
+                #     print"and",
+                print str(i+1) + "." + receiver[i]
+            # print "\n"
+
        # 创建一个带附件的实例
         msg = MIMEMultipart()
         # msg = MIMEText(str(text), 'plain', 'utf-8')
-        msg['From'] = formataddr(['user', sender])  # 括号里的对应发件人邮箱昵称、发件人邮箱账号
+        # str.rfind返回字符串最后一次出现的位置，如果没有匹配项则返回-1
+        msg['From'] = formataddr([username[0:username.rfind('@',1)], sender])  # 括号里的对应发件人邮箱昵称、发件人邮箱账号
         msg['To'] = ",".join(receiver) # 括号里的对应收件人邮箱昵称、收件人邮箱账号
 
         subject_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -91,10 +103,9 @@ class Xiaozhao(object):
             smtp.login(username, password)
             smtp.sendmail(sender, receiver, msg.as_string())
             smtp.quit()
-            print("邮件发送成功")
-        except smtplib.SMTPException:
-            print("Error: 无法发送邮件")
-
+            print "邮件发送成功"
+        except smtplib.SMTPException, e:
+            print "Error: 无法发送邮件: "+str(e)
 
 if __name__=='__main__':
     xiaozhao = Xiaozhao()
